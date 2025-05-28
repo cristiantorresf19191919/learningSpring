@@ -1,0 +1,47 @@
+package com.in28minutes.learnspringframework.examples.prepostannotation;
+
+import jakarta.annotation.PostConstruct;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+
+@Component
+class SomeClass {
+    private SomeDependency dependency;
+
+    public SomeClass(SomeDependency dependency) {
+        this.dependency = dependency;
+        System.out.println("🤠SomeClass Initialized🤠🤠");
+    }
+    //After the dependencies are auto wired
+    @PostConstruct
+    public void initialize(){
+        this.dependency.getReady();
+    }
+}
+
+@Component
+class SomeDependency {
+
+    public void getReady() {
+        System.out.println("🤠SomeDependency Logic Simulated🤠🤠");
+    }
+}
+
+
+@Configuration
+@ComponentScan
+public class PrepostRunnerApplication {
+    public static void main(String[] args) {
+        try (
+                var context = new AnnotationConfigApplicationContext(PrepostRunnerApplication.class)
+        ) {
+            //Print bean dependencies on the context
+            Arrays.stream(context.getBeanDefinitionNames()).forEach(System.out::println);
+
+        }
+    }
+}
