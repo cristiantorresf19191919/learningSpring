@@ -1,12 +1,20 @@
 package com.in28minutes.learnspringframework.examples.prepostannotation;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+
+@Component
+class Console {
+    public static void log(Object message) {
+        System.out.println(message);
+    }
+}
 
 @Component
 class SomeClass {
@@ -21,11 +29,15 @@ class SomeClass {
     public void initialize(){
         this.dependency.getReady();
     }
+
+    @PreDestroy
+    public void cleanUp(){
+        Console.log("🤠SomeClass Cleaned Up🤠🤠");
+    }
 }
 
 @Component
 class SomeDependency {
-
     public void getReady() {
         System.out.println("🤠SomeDependency Logic Simulated🤠🤠");
     }
