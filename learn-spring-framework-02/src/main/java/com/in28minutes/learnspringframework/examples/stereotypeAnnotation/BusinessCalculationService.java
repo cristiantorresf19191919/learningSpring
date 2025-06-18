@@ -1,16 +1,16 @@
-package com.in28minutes.learnspringframework.examples.businessDataCalculator;
+package com.in28minutes.learnspringframework.examples.stereotypeAnnotation;
 
-import com.in28minutes.learnspringframework.examples.businessDataCalculator.services.DataService;
-import org.springframework.stereotype.Component;
+import com.in28minutes.learnspringframework.examples.stereotypeAnnotation.services.DataService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
-@Component
+@Service
 public class BusinessCalculationService {
     private DataService dataservice;
 
-    public BusinessCalculationService(DataService dataservice) {
+    public BusinessCalculationService(@Qualifier("redis") DataService dataservice) {
         this.dataservice = dataservice;
     }
 

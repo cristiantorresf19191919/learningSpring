@@ -6,15 +6,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan
+@ComponentScan()
 public class ApplicationRunner {
     public static void main(String[] args) {
         //Create the Spring Context
         try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationRunner.class)) {
             var businessLogic = context.getBean(BusinessLogic.class);
-            var logger = context.getBean(Logger.class);
             var result = businessLogic.calculateMaxAge();
-            logger.info(result);
+            System.out.println(result);
         }
     }
 }

@@ -18,16 +18,16 @@ class Console {
 
 @Component
 class SomeClass {
-    private SomeDependency dependency;
+    private SomeDependency someDependency;
 
     public SomeClass(SomeDependency dependency) {
-        this.dependency = dependency;
+        this.someDependency = dependency;
         System.out.println("🤠SomeClass Initialized🤠🤠");
     }
     //After the dependencies are auto wired
     @PostConstruct
     public void initialize(){
-        this.dependency.getReady();
+        this.someDependency.getReady();
     }
 
     @PreDestroy
